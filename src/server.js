@@ -8,5 +8,5 @@ app.get("/helloworld",(req,res) =>{
 });
 
 app.listen(port,hostname,()=>{
-  console.log("ban dang chay o localhost:9899/helloworld");
+  console.log("ban dang chay o "+hostname+":"+port );
 });
