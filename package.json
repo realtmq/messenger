@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/quangtmbkhn1999/messenger#readme",
   "dependencies": {
+    "bluebird": "^3.5.3",
     "express": "^4.17.1",
-    "mongoose": "^4.13.9"
+    "mongoose": "^4.13.20"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
