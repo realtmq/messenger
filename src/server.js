@@ -1,6 +1,7 @@
 import express from "express";
 import connectDB from "./config/connectDB";
 import configViewEngine from "./config/viewEngine";
+import initRoutes from "./routes/web.js";
 
 // init app
 let app=express();
@@ -13,14 +14,7 @@ configViewEngine(app);
 
 let port=9899;
 let hostname="localhost";
-
-app.get("/",(req,res) =>{
-	return res.render("main/master");
-});
-
-app.get("/login-register",(req,res)=>{
-	return res.render("auth/register");
-});
+initRoutes(app);
 
 app.listen(port,hostname,()=>{
   console.log("ban dang chay o "+hostname+":"+port );
