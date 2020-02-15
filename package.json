@@ -19,7 +19,9 @@
   "homepage": "https://github.com/quangtmbkhn1999/messenger#readme",
   "dependencies": {
     "bluebird": "^3.5.3",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "express-ejs-extend": "0.0.1",
     "mongoose": "^4.13.20"
   },
   "devDependencies": {

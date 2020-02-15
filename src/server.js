@@ -1,23 +1,25 @@
 import express from "express";
 import connectDB from "./config/connectDB";
-import ContactModel from "./models/contact.model";
+import configViewEngine from "./config/viewEngine";
+
+// init app
 let app=express();
+
+// connect database
 connectDB();
+
+//config view engine 
+configViewEngine(app);
+
 let port=9899;
 let hostname="localhost";
 
-app.get("/helloworld",async (req,res) =>{
-	try{
-		let item={
-			userId:"wsdfghfg",
-			contactId:"safdsadfsfa"
-		};
-		let contact= await ContactModel.createNew(item);
-		res.send(contact);
+app.get("/",(req,res) =>{
+	return res.render("main/master");
+});
 
-	}catch(err){
-		console.log(err);
-	}
+app.get("/login-register",(req,res)=>{
+	return res.render("auth/register");
 });
 
 app.listen(port,hostname,()=>{
