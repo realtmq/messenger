@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 let Schema = mongoose.Schema;
+
 let UserSchema =new Schema({
 	username: String,
-	gender: {type: String,default:male},
+	gender: {type: String,default:"male"},
 	phone:{type:Number,default:null},
 	address:{type:String,default:null},
 	avatar:{type:String,default:"avatar-default.jpg"},
@@ -27,5 +28,16 @@ let UserSchema =new Schema({
 	updatedAt:{type:Number,default:null},
 	deletedAt:{type:Number,default:null}
 });
+
+UserSchema.statics={
+	createNew(item){
+	return this.create(item);
+	},
+	findByEmail(email){
+		return this.findOne({"local.email":email}).exec();
+	}
+
+
+}
 
 module.exports =mongoose.model("user",UserSchema);
