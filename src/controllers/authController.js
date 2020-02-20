@@ -35,8 +35,26 @@ let postRegister=async (req,res)=>{
     
 }; 
 
+let verifyAccount =async (req,res)=>{
+	try{
+		
+	    let successArray=[];
+		let verifySuccess= await auth.verifyAccount(req.params.token);
+		successArray.push(verifySuccess);
+		req.flash("success",successArray);
+		return res.redirect("/login-register");
+	}catch(error){
+		let errorArray=[];
+		errorArray.push(error);
+		req.flash("errors",errorArray);
+        return res.redirect("/login-register");
+	}
+    
+};
+
 
 module.exports={
 	getLoginRegister:getLoginRegister,
-	postRegister:postRegister
+	postRegister:postRegister,
+	verifyAccount:verifyAccount
 };
