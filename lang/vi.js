@@ -22,7 +22,8 @@ export const transSuccess={
 	loginSuccess:(username)=>{
 		return "Xin chào"+ username+",chào mừng đến với ứng dụng Messenger"
 
-	}
+	},
+	logout_success:"Đăng xuất tài khoản thành công"
 }
 
 export const transMail={

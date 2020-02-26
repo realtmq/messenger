@@ -12,21 +12,25 @@ let router= express.Router();
 //init routes
 
 let initRoutes= (app)=>{
-// trang home
-	router.get("/",home.getHome);
+
 // trang login
-    router.get("/login-register",auth.getLoginRegister);
+    router.get("/login-register",auth.checkLoggedout,auth.getLoginRegister);
 
-    router.post("/register",authValid.register,auth.postRegister);
+    router.post("/register",auth.checkLoggedout,authValid.register,auth.postRegister);
 
-    router.get("/verify/:token",auth.verifyAccount);
+    router.get("/verify/:token",auth.checkLoggedout,auth.verifyAccount);
 
-    router.post("/login",passport.authenticate("local",{
+    router.post("/login",auth.checkLoggedout,passport.authenticate("local",{
     	successRedirect:"/",
     	failureRedirect:"/login-register",
     	successFlash:true,
     	failureFlash:true
     }));
+
+// trang home
+	router.get("/",auth.checkLoggedin,home.getHome);
+	
+    router.get("/logout",auth.checkLoggedin,auth.getLogout )
 
 
     return app.use("/",router);
