@@ -9,14 +9,20 @@ export const transErrors={
 	account_in_use:"Email đã được đăng kí",
 	account_is_deleted:"Tài khoản của bạn đã bị xóa,hãy liên hệ với bộ phận cskh để biết thêm chi tiết",
 	account_not_active:"Tài khoản của bạn chưa được active,hãy kiểm tra lại Email",
-	token_undefined:"Token không tồn tại"
+	token_undefined:"Token không tồn tại",
+	login_failed:"sai tài khoản hoặc mật khẩu!",
+	server_error:"có lỗi phía server"
 }
 
 export const transSuccess={
 	userCreated:(userEmail)=>{
 		return 'Tài khoản được đăng kí thành công.Truy cập <strong>${userEmail}</strong> để active tài khoản trước khi đăng nhập';		
 	},
-	accountActivated:'Kích hoạt thành công,bạn đã có thể đăng nhập vào hệ thống'
+	accountActivated:'Kích hoạt thành công,bạn đã có thể đăng nhập vào hệ thống',
+	loginSuccess:(username)=>{
+		return "Xin chào"+ username+",chào mừng đến với ứng dụng Messenger"
+
+	}
 }
 
 export const transMail={

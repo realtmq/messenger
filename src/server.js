@@ -4,7 +4,8 @@ import configViewEngine from "./config/viewEngine";
 import initRoutes from "./routes/web.js";
 import bodyParser from "body-parser";
 import connectFlash from "connect-flash";
-import configSession from "./config/session"
+import configSession from "./config/session";
+import passport from "passport";
 
 // init app
 let app=express();
@@ -24,6 +25,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 //config flash message
 app.use(connectFlash());
 
+//config passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 let port=9899;
 let hostname="localhost";
