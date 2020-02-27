@@ -46,6 +46,9 @@ UserSchema.statics={
 	findByToken(token){
 		return this.findOne({"local.verifyToken":token}).exec();
 	},
+	findByFacebookUid(uid){
+		return this.findOne({"facebook.uid":uid}).exec();
+	},
 	verify(token){
 		return this.findOneAndUpdate({"local.verifyToken":token},
 			{"local.isActive":true,"local.verifyToken":null}
