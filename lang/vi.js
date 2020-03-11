@@ -11,19 +11,22 @@ export const transErrors={
 	account_not_active:"Tài khoản của bạn chưa được active,hãy kiểm tra lại Email",
 	token_undefined:"Token không tồn tại",
 	login_failed:"sai tài khoản hoặc mật khẩu!",
-	server_error:"có lỗi phía server"
+	server_error:"có lỗi phía server",
+	avatar_type_error:"File phai co dang jpg,jpeg,png",
+	avatar_size_error:"dung luong qua 1 mb"
 }
 
 export const transSuccess={
 	userCreated:(userEmail)=>{
-		return 'Tài khoản được đăng kí thành công.Truy cập <strong>${userEmail}</strong> để active tài khoản trước khi đăng nhập';		
+		return 'Tài khoản được đăng kí thành công.Truy cập <strong>'+userEmail+'</strong> để active tài khoản trước khi đăng nhập';		
 	},
 	accountActivated:'Kích hoạt thành công,bạn đã có thể đăng nhập vào hệ thống',
 	loginSuccess:(username)=>{
-		return "Xin chào"+ username+",chào mừng đến với ứng dụng Messenger"
+		return "Xin chào"+ username+",chào mừng đến với ứng dụng Messenger";
 
 	},
-	logout_success:"Đăng xuất tài khoản thành công"
+	logout_success:"Đăng xuất tài khoản thành công",
+	avatar_updated:"Cập nhật ảnh đại diện thành công"
 }
 
 export const transMail={

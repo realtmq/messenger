@@ -6,15 +6,8 @@ import bodyParser from "body-parser";
 import connectFlash from "connect-flash";
 import configSession from "./config/session";
 import passport from "passport";
-import pem from "pem";
-import https from "https";
 
-
-pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
-  if (err) {
-    throw err
-  }
-   // init app
+// init app
 let app=express();
 
 // connect database
@@ -41,14 +34,21 @@ let hostname="localhost";
 
 initRoutes(app);
 
-  https.createServer({ key: keys.serviceKey, cert: keys.certificate },app).listen(port,hostname,()=>{
-    console.log("ban dang chay o "+hostname+":"+port );
-  }); 
 
-  ////////////////////////////////
-})
+app.listen(port,hostname,()=>{
+  console.log("ban dang chay o "+hostname+":"+port );
+});
 
-// // init app
+
+// import pem from "pem";
+// import https from "https";
+
+
+// pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+//   if (err) {
+//     throw err
+//   }
+//    // init app
 // let app=express();
 
 // // connect database
@@ -75,7 +75,10 @@ initRoutes(app);
 
 // initRoutes(app);
 
+//   https.createServer({ key: keys.serviceKey, cert: keys.certificate },app).listen(port,hostname,()=>{
+//     console.log("ban dang chay o "+hostname+":"+port );
+//   }); 
 
-// app.listen(port,hostname,()=>{
-//   console.log("ban dang chay o "+hostname+":"+port );
-// });
+//   ////////////////////////////////
+// })
+

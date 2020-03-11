@@ -22,6 +22,6 @@ let configSession=(app)=>{
 		}
 	}));
 
-};
+}; 
 
 module.exports =configSession;

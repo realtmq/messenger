@@ -1,5 +1,5 @@
 import express from "express";
-import {home,auth} from "./../controllers/index.js";
+import {home,auth,user} from "./../controllers/index.js";
 import {authValid} from "./../validation/index";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
@@ -39,7 +39,9 @@ let initRoutes= (app)=>{
 // trang home
 	router.get("/",auth.checkLoggedin,home.getHome);
 	
-    router.get("/logout",auth.checkLoggedin,auth.getLogout )
+    router.get("/logout",auth.checkLoggedin,auth.getLogout );
+
+    router.put("/user/update-avatar",auth.checkLoggedin,user.updateAvatar);
 
 
     return app.use("/",router);

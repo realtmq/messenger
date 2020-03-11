@@ -53,6 +53,9 @@ UserSchema.statics={
 		return this.findOneAndUpdate({"local.verifyToken":token},
 			{"local.isActive":true,"local.verifyToken":null}
 			).exec();
+	},
+	updateUser(id,item){
+		return this.findByIdAndUpdate(id,item).exec();
 	}
 };  
 
