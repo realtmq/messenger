@@ -2,7 +2,11 @@ export const transValidation={
 	email_incorrect:"email phải có định dạng example@email.com",
 	gender_incorrect:"Chon gioi tinh phu hop",
 	password_incorrect:"Mật khẩu phải có ít nhất 8 kí tự,chữ hoa,chữ thường và kí tự đặc biệt",
-	password_confirmation_incorrect:"Nhập lại mật khẩu chưa chính xác"
+	password_confirmation_incorrect:"Nhập lại mật khẩu chưa chính xác",
+	update_username:"User name tu 3-17 ki tu,khong co cac ki tu dac biet",
+	update_gender:"Hack cl",
+	update_address:"dia chi tu 4-40 ki tu",
+	update_phone:"bat dau bang 0,gom 10-11 ki tu"
 }
 
 export const transErrors={
@@ -26,7 +30,7 @@ export const transSuccess={
 
 	},
 	logout_success:"Đăng xuất tài khoản thành công",
-	avatar_updated:"Cập nhật ảnh đại diện thành công"
+	user_info_updated:"Cap nhat thong tin nguoi dung thanh cong"
 }
 
 export const transMail={

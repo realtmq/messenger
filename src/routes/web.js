@@ -1,6 +1,6 @@
 import express from "express";
 import {home,auth,user} from "./../controllers/index.js";
-import {authValid} from "./../validation/index";
+import {authValid,userValid} from "./../validation/index";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
 import initPassportFacebook from "./../controllers/passportController/facebook";
@@ -42,6 +42,8 @@ let initRoutes= (app)=>{
     router.get("/logout",auth.checkLoggedin,auth.getLogout );
 
     router.put("/user/update-avatar",auth.checkLoggedin,user.updateAvatar);
+
+    router.put("/user/update-info",auth.checkLoggedin,userValid.updateInfo,user.updateInfo);
 
 
     return app.use("/",router);
