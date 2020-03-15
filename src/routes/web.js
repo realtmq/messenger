@@ -45,6 +45,8 @@ let initRoutes= (app)=>{
 
     router.put("/user/update-info",auth.checkLoggedin,userValid.updateInfo,user.updateInfo);
 
+    router.put("/user/update-password",auth.checkLoggedin,userValid.updatePassword,user.updatePassword);
+
 
     return app.use("/",router);
 

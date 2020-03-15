@@ -13,11 +13,13 @@ export const transErrors={
 	account_in_use:"Email đã được đăng kí",
 	account_is_deleted:"Tài khoản của bạn đã bị xóa,hãy liên hệ với bộ phận cskh để biết thêm chi tiết",
 	account_not_active:"Tài khoản của bạn chưa được active,hãy kiểm tra lại Email",
+	account_undefined:"Tai khoan khong ton tai",
 	token_undefined:"Token không tồn tại",
 	login_failed:"sai tài khoản hoặc mật khẩu!",
 	server_error:"có lỗi phía server",
 	avatar_type_error:"File phai co dang jpg,jpeg,png",
-	avatar_size_error:"dung luong qua 1 mb"
+	avatar_size_error:"dung luong qua 1 mb",
+	password_invalid:"Ban nhap sai mat khau hien tai"
 }
 
 export const transSuccess={
@@ -30,7 +32,8 @@ export const transSuccess={
 
 	},
 	logout_success:"Đăng xuất tài khoản thành công",
-	user_info_updated:"Cap nhat thong tin nguoi dung thanh cong"
+	user_info_updated:"Cap nhat thong tin nguoi dung thanh cong",
+	user_password_updated:"Thay doi mat khau thanh cong"
 }
 
 export const transMail={

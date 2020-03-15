@@ -2,6 +2,7 @@ let userAvatar=null;
 let userInfor={};
 let originAvatarSrc=null;
 let originUserInfo={};
+let userUpdatePassword={};
 function updateUserInfor(){
 	$("#input-change-avatar").bind("change",function(){
 		let fileData=$(this).prop("files")[0];
@@ -107,6 +108,52 @@ function updateUserInfor(){
         }
 		userInfor.phone=$(this).val();
 	});
+//modal change passord
+
+	$("#input-change-current-password").bind("change",function(){
+		let currentPassword= $(this).val();
+		let regexPassword= new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/);
+        if(!regexPassword.test(currentPassword))
+        {
+        	alertify.notify("Mat khau khong dung dinh dang","error",7);
+        	$(this).val(null);
+        	delete userUpdatePassword.currentPassword;
+        	return false;
+        }
+		userUpdatePassword.currentPassword=currentPassword;
+	});
+
+	$("#input-change-new-password").bind("change",function(){
+		let newPassword= $(this).val();
+		let regexPassword= new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/);
+        if(!regexPassword.test(newPassword))
+        {
+        	alertify.notify("Mat khau khong dung dinh dang","error",7);
+        	$(this).val(null);
+        	delete userUpdatePassword.newPassword;
+        	return false;
+        }
+		userUpdatePassword.newPassword=newPassword;
+	});
+
+	$("#input-change-confirm-new-password").bind("change",function(){
+		let confirmNewPassword= $(this).val();
+
+        if(!userUpdatePassword.newPassword){
+        	alertify.notify("Ban chua nhap mat khau moi","error",7);
+        	$(this).val(null);
+        	delete userUpdatePassword.confirmNewPassword;
+        	return false;
+        }
+
+        if(confirmNewPassword !== userUpdatePassword.newPassword){
+        	alertify.notify("Mat khau khong trung khop","error",7);
+        	$(this).val(null);
+        	delete userUpdatePassword.confirmNewPassword;
+        	return false;
+        }
+		userUpdatePassword.confirmNewPassword=confirmNewPassword;
+	});
 }
 
 
@@ -173,9 +220,31 @@ function callUpdateUserInfo(){
 
 }
 
-$(document).ready(function(){
-	
+function callUpdateUserPassword(){
+	$.ajax({
+		url:"/user/update-password",
+		type:"put",
+		data:userUpdatePassword ,
+		success: function(result){
+            
+			$(".user-modal-password-alert-success").find("span").text(result.message);
+			$(".user-modal-password-alert-success").css("display","block");	
 
+			$("#input-btn-reset-update-user").click(); // autoclick reset button :D
+		},
+		error: function(error){
+			//In loi ra man hinh
+			$(".user-modal-password-alert-error").find("span").text(error.responseText);
+			$(".user-modal-password-alert-error").css("display","block");
+			//reset lai avatar cu
+			$("#input-btn-reset-update-user").click(); // autoclick reset button :D
+
+		}
+	});
+
+};
+
+$(document).ready(function(){
 	originAvatarSrc= $("#user-modal-avatar").attr("src");
 	originUserInfo={
 		username:$("#input-change-username").val(),
@@ -192,7 +261,6 @@ $(document).ready(function(){
 			alertify.notify("ban phai thay doi thong tin truoc khi gui","error",7);
 			return false;
 		}
-
 		if(userAvatar){
 	        callUpdateAvatar();
      	}
@@ -208,7 +276,6 @@ $(document).ready(function(){
 	$("#input-btn-reset-update-user").bind("click",function(){
 		userAvatar=null;
         userInfor={};
-
         //console.log(originUserInfo);
         $("#input-change-avatar").val(null);
         $("#user-modal-avatar").attr("src",originAvatarSrc);
@@ -218,4 +285,40 @@ $(document).ready(function(){
         $("#input-change-address").val(originUserInfo.address);
         $("#input-change-phonenumber").val(originUserInfo.phone);
 	})
+
+
+	//Luu lai password
+		//Luu lai password
+	$("#input-btn-update-user-password").bind("click",function(){
+		if(!userUpdatePassword.currentPassword || !userUpdatePassword.newPassword || !userUpdatePassword.confirmNewPassword)
+		{
+			alertify.notify("Ban phai nhap day du cac truong","error",7);
+			return false;
+		}
+		//Modal xac nhan thay doi mk
+		Swal.fire({
+            title: 'Bạn đã chắc chắn muốn thay đổi mật khẩu?',
+            text: "Không thể hoàn tác,vì vậy hãy ghi nhớ mật khẩu cũ",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#2ECC71',
+            cancelButtonColor: '#ff7675',
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Hủy bỏ'
+          }).then((result) => {
+          	if(!result.value){
+          		$("#input-btn-cancel-update-user-password").click();
+          		return false;
+          	}
+            callUpdateUserPassword();
+          })
+    });
+
+    //reset button
+    $("#input-btn-cancel-update-user-password").bind("click",function(){
+    	userUpdatePassword={};
+    	$("#input-change-current-password").val(null);
+    	$("#input-change-new-password").val(null);
+    	$("#input-change-confirm-new-password").val(null);
+    });
 });
