@@ -1,5 +1,5 @@
 import express from "express";
-import {home,auth,user} from "./../controllers/index.js";
+import {home,auth,user,contact} from "./../controllers/index.js";
 import {authValid,userValid} from "./../validation/index";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
@@ -46,6 +46,8 @@ let initRoutes= (app)=>{
     router.put("/user/update-info",auth.checkLoggedin,userValid.updateInfo,user.updateInfo);
 
     router.put("/user/update-password",auth.checkLoggedin,userValid.updatePassword,user.updatePassword);
+
+    router.get("/contact/find-users/:keyword",auth.checkLoggedin,contact.findUsersContact);
 
 
     return app.use("/",router);
