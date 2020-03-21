@@ -14,8 +14,8 @@ function callFindUser(element){
 		// }
 		$.get("/contact/find-users/"+keyword,function(data){
 			$("#find-user ul").html(data);
-			console.log(data);
-
+			addContact(); //js/addContact.js
+			undoAddContact();//js/undoAddContact.js
 		});
 	}
 }

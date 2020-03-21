@@ -17,8 +17,22 @@ ContactSchema.statics={
 	findAllByUser(userId){
 		return this.find({
 			$or:[{"userId":userId},{"contactId":userId}]
-		}).exec()
+		}).exec();
 		
+	},
+	checkExistRelationship(userId,contactId){
+		return this.findOne({
+			$or:[
+			{$and:[{"userId":userId},{"contactId":contactId}]},
+			{$and:[{"userId":contactId},{"contactId":userId}]}
+			]
+		}).exec();
+
+	},
+	removeContact(userId,contactId){
+		return this.remove({
+			$and:[{"userId":userId},{"contactId":contactId}]
+		}).exec();
 	}
 }
 

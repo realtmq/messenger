@@ -49,6 +49,10 @@ let initRoutes= (app)=>{
 
     router.get("/contact/find-users/:keyword",auth.checkLoggedin,contact.findUsersContact);
 
+    router.post("/contact/add-new",auth.checkLoggedin,contact.addNew);
+
+    router.delete("/contact/undo-add-contact",auth.checkLoggedin,contact.undoAddContact);
+
 
     return app.use("/",router);
 
