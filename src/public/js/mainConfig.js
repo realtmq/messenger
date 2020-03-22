@@ -1,6 +1,9 @@
 /**
  * Created by https://trungquandev.com's author on 25/02/2018.
  */
+
+const socket=io(); //khoi tao bien toan cuc socket
+
 function nineScrollLeft() {
   $('.left').niceScroll({
     smoothscroll: true,
