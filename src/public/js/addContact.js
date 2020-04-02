@@ -1,4 +1,3 @@
-
 function addContact(){
 	$(".user-add-new-contact").bind("click",function(){
 		let targetId= $(this).data("uid");
@@ -15,3 +14,23 @@ function addContact(){
 		
 	});
 }
+
+socket.on("response-add-new-contact",function(user){
+	let noti= '<span data-uid="'+user.id+'"><img class="avatar-small" src="images/users/'+user.avatar+'" alt="">  <strong>'+user.username+'</strong> đã gửi cho bạn một lời mời kết bạn!</span><br><br><br>';
+
+    $(".noti_content").prepend(noti);
+    increaseNotiContact("count-request-contact-received");
+    increaseNotiNavbar("noti_contact_counter");
+    increaseNotiNavbar("noti_counter");
+})
+
+
+// <span data-uid="${ user.id }">
+// <img class="avatar-small" src="images/users/default-avatar-trungquandev-02.jpg" alt=""> 
+// <strong>Trung Quân</strong> đã gửi cho bạn một lời mời kết bạn!
+// </span><br><br><br>
+
+
+	   
+       
+           
