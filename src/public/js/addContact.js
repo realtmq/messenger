@@ -8,7 +8,6 @@ function addContact(){
 				increaseNotiContact("count-request-contact-sent");
 				//realtime socket
 				socket.emit("add-new-contact",{contactId:targetId});
-
 			}
 		});
 		
@@ -16,7 +15,7 @@ function addContact(){
 }
 
 socket.on("response-add-new-contact",function(user){
-	let noti= '<span data-uid="'+user.id+'"><img class="avatar-small" src="images/users/'+user.avatar+'" alt="">  <strong>'+user.username+'</strong> đã gửi cho bạn một lời mời kết bạn!</span><br><br><br>';
+	let noti= '<span class="notification-unread" data-uid="'+user.id+'"><img class="avatar-small" src="images/users/'+user.avatar+'" alt="">  <strong>'+user.username+'</strong> đã gửi cho bạn một lời mời kết bạn!</span><br><br><br>';
 
     $(".noti_content").prepend(noti);
     increaseNotiContact("count-request-contact-received");
