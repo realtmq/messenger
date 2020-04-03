@@ -23,6 +23,11 @@ NotificationSchema.statics={
 	},
 	getByUserAndLimit(userId,limit){
 		return this.find({"receiverId":userId}).sort({"createdAt":-1}).limit(limit).exec();
+	},
+	getUnreadNotifications(userId){
+		return this.count({$and:[
+			{"receiverId":userId},
+			{"isRead":false}]}).exec();
 	}
 }
 
@@ -34,9 +39,9 @@ const NOTIFICATION_CONTENTS={
 	getContent:(notificationType,isRead,userId,userName,userAvatar,)=>{
 		if(notificationType===NOTIFICATION_TYPES.ADD_CONTACT){
 			if(!isRead){
-			return '<span class="notification-unread" data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã gửi cho bạn một lời mời kết bạn!</span><br><br><br>';
+			return '<div class="notification-unread" data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã gửi cho bạn một lời mời kết bạn!</div>';
               }
-   			return '<span data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã gửi cho bạn một lời mời kết bạn!</span><br><br><br>';
+   			return '<div data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã gửi cho bạn một lời mời kết bạn!</div>';
 
 		}
 		return "add_contact loi";

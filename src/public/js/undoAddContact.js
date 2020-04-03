@@ -19,7 +19,8 @@ function undoAddContact(){
 }
 
 socket.on("response-undo-add-contact",function(user){
-	$(".noti_content").find('span[data-uid='+user.id+']').remove();
+	$(".noti_content").find('div[data-uid='+user.id+']').remove(); //xoa thong bao tai popup
+	$("ul.list-notifications").find('li>div[data-uid='+user.id+']').parent().remove(); //xoa thong bao tai modal
 	//xoa  o modal tab yeu cau kb
     decreaseNotiContact("count-request-contact-received");
     decreaseNotiNavbar("noti_contact_counter");

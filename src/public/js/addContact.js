@@ -15,9 +15,10 @@ function addContact(){
 }
 
 socket.on("response-add-new-contact",function(user){
-	let noti= '<span class="notification-unread" data-uid="'+user.id+'"><img class="avatar-small" src="images/users/'+user.avatar+'" alt="">  <strong>'+user.username+'</strong> đã gửi cho bạn một lời mời kết bạn!</span><br><br><br>';
+	let noti= '<div class="notification-unread" data-uid="'+user.id+'"><img class="avatar-small" src="images/users/'+user.avatar+'" alt="">  <strong>'+user.username+'</strong> đã gửi cho bạn một lời mời kết bạn!</div>';
 
-    $(".noti_content").prepend(noti);
+    $(".noti_content").prepend(noti);//them thong bao tai popup
+    $("ul.list-notifications").prepend('<li>'+noti+'</li>'); //them thong bao tai modal
     increaseNotiContact("count-request-contact-received");
     increaseNotiNavbar("noti_contact_counter");
     increaseNotiNavbar("noti_counter");

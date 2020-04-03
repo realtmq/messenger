@@ -1,5 +1,7 @@
 import notificationModel from "./../models/notificationModel";
 import userModel from "./../models/userModel";
+
+// 
 let getNotifications= (currentUserId,limit=10)=>{
 	return new Promise(async (resolve,reject)=>{
 		try{
@@ -15,6 +17,19 @@ let getNotifications= (currentUserId,limit=10)=>{
 	});
 };
 
+let getUnreadNotifications= (currentUserId )=>{
+	return new Promise(async (resolve,reject)=>{
+		try{
+			let unreadNotifications= await notificationModel.model.getUnreadNotifications(currentUserId);
+			resolve(unreadNotifications);
+		}catch(error){
+			reject(error);
+		}
+	});
+};
+
+
 module.exports={
-	getNotifications:getNotifications
+	getNotifications:getNotifications,
+	getUnreadNotifications:getUnreadNotifications
 }
