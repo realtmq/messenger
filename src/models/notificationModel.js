@@ -28,6 +28,14 @@ NotificationSchema.statics={
 		return this.count({$and:[
 			{"receiverId":userId},
 			{"isRead":false}]}).exec();
+	},
+	readMore(userId,skipNumber,limit){
+		return this.find({"receiverId":userId}).sort({"createdAt":-1}).skip(skipNumber).limit(limit).exec();  
+	},
+	markAllAsRead(userId,targetUsers){
+		return this.updateMany({
+			$and:[{"receiverId":userId},{"senderId":{$in:targetUsers}}]
+		},{"isRead":true}).exec();
 	}
 }
 

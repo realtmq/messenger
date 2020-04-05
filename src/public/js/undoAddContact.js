@@ -23,6 +23,6 @@ socket.on("response-undo-add-contact",function(user){
 	$("ul.list-notifications").find('li>div[data-uid='+user.id+']').parent().remove(); //xoa thong bao tai modal
 	//xoa  o modal tab yeu cau kb
     decreaseNotiContact("count-request-contact-received");
-    decreaseNotiNavbar("noti_contact_counter");
-    decreaseNotiNavbar("noti_counter");
+    decreaseNotiNavbar("noti_contact_counter",1);
+    decreaseNotiNavbar("noti_counter",1);
 })

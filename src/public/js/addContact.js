@@ -20,8 +20,8 @@ socket.on("response-add-new-contact",function(user){
     $(".noti_content").prepend(noti);//them thong bao tai popup
     $("ul.list-notifications").prepend('<li>'+noti+'</li>'); //them thong bao tai modal
     increaseNotiContact("count-request-contact-received");
-    increaseNotiNavbar("noti_contact_counter");
-    increaseNotiNavbar("noti_counter");
+    increaseNotiNavbar("noti_contact_counter",1);
+    increaseNotiNavbar("noti_counter",1);
 })
 
 

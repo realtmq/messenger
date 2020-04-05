@@ -1,7 +1,7 @@
 //tang chi so thong bao ket ban
-function increaseNotiNavbar(className){
+function increaseNotiNavbar(className,number){
 	currentValue=+$("."+className).text(); //+ DE chuyen tu string sang kieu int
-	currentValue+=1;
+	currentValue+=number;
 	if(currentValue===0)
 	{
 		$("."+className).css("display","none").html("");
@@ -10,10 +10,10 @@ function increaseNotiNavbar(className){
 }
 
 //giam chi so thong bao ket bam
-function decreaseNotiNavbar(className){
+function decreaseNotiNavbar(className,number){
 	currentValue=+$("."+className).text(); //+ DE chuyen tu string sang kieu int
 	if(currentValue>0){ // TRANH TRUONG HOP KO GUI LOI MOI MA VAN HUY DC
-		currentValue-=1;
+		currentValue-=number;
 	}
 	if(currentValue===0)
 	{
