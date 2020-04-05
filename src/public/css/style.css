@@ -1325,7 +1325,10 @@ label:focus,
   margin-right: 20px;
 }
 
-.read-more-notif {
+.read-more-notif,
+.read-more-contact,
+.read-more-contact-sent 
+.read-more-contact-received{
   text-align: center;
 }
 

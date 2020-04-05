@@ -11,6 +11,10 @@ function undoAddContact(){
 				$("#find-user").find('div.user-remove-request-contact[data-uid='+targetId+']').hide();
 	            decreaseNotiContact("count-request-contact-sent");
 		     	//socketio bai sau
+
+		     	//xoa o dang cho xac nhan
+		     	$("#request-contact-sent").find("li[data-uid="+targetId+"]").remove();
+
 		     	socket.emit("undo-add-contact",{contactId:targetId});
 			}
 			}
@@ -22,6 +26,8 @@ socket.on("response-undo-add-contact",function(user){
 	$(".noti_content").find('div[data-uid='+user.id+']').remove(); //xoa thong bao tai popup
 	$("ul.list-notifications").find('li>div[data-uid='+user.id+']').parent().remove(); //xoa thong bao tai modal
 	//xoa  o modal tab yeu cau kb
+	 $("#request-contact-received").find('li[data-uid='+user.id+']').remove();
+
     decreaseNotiContact("count-request-contact-received");
     decreaseNotiNavbar("noti_contact_counter",1);
     decreaseNotiNavbar("noti_counter",1);

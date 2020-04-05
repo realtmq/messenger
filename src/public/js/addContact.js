@@ -6,6 +6,13 @@ function addContact(){
 				$("#find-user").find('div.user-add-new-contact[data-uid='+targetId+']').hide();
 				$("#find-user").find('div.user-remove-request-contact[data-uid='+targetId+']').css("display","inline-block");
 				increaseNotiContact("count-request-contact-sent");
+
+				//lay the 'li'	cua modal finduser chuyen sang tab dang cho xac nhan			
+				let userInfoHtml=$("#find-user").find('ul li[data-uid='+targetId+']').get(0).outerHTML;
+				console.log(userInfoHtml);
+				$("#request-contact-sent").find("ul").prepend(userInfoHtml);
+
+
 				//realtime socket
 				socket.emit("add-new-contact",{contactId:targetId});
 			}
@@ -22,6 +29,33 @@ socket.on("response-add-new-contact",function(user){
     increaseNotiContact("count-request-contact-received");
     increaseNotiNavbar("noti_contact_counter",1);
     increaseNotiNavbar("noti_counter",1);
+
+
+//them o modal dang yeu cau xac nhan
+    let userInfoHtml='<li class="_contactList" data-uid="'+user.id+'">'+
+                                        '<div class="contactPanel">'+
+                                            '<div class="user-avatar">'+
+                                             '   <img src="images/users/'+user.avatar+'" alt="">'+
+                                            '</div>'+
+                                            '<div class="user-name">'+
+                                                '<p>'+
+                                                    user.username+
+                                                '</p>'+
+                                            '</div>'+
+                                            '<br>'+
+                                            '<div class="user-address">'+
+                                                '<span>&nbsp '+user.address+'</span>'+
+                                            '</div>'+
+                                            '<div class="user-acccept-contact-received" data-uid="'+user.id+'">'+
+                                                'Chấp nhận'+
+                                            '</div>'+
+                                            '<div class="user-reject-request-contact-received action-danger" data-uid="'+user.id+'">'+
+                                                'Xóa yêu cầu'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</li>';
+
+    $("#request-contact-received").find("ul").prepend(userInfoHtml);
 })
 
 
