@@ -32,8 +32,41 @@ let undoAddContact=async(req,res)=>{
     }
 };
 
+let readMoreContact=async(req,res)=>{
+	try{
+		let skipNumber=+(req.query.skipNumber);
+		let newContactUsers= await contact.readMoreContact(req.user.id,skipNumber);
+		return res.status(200).send(newContactUsers);
+	}catch(error){
+		return res.status(500).send(error);
+	}
+};
+
+let readMoreContactSent= async(req,res)=>{
+	try{
+		let skipNumber=+(req.query.skipNumber);
+		let newContactUsers= await contact.readMoreContactSent(req.user.id,skipNumber);
+		return res.status(200).send(newContactUsers);
+	}catch(error){
+		return res.status(500).send(error);
+	}
+};
+
+let readMoreContactReceived= async(req,res)=>{
+	try{
+		let skipNumber=+(req.query.skipNumber);
+		let newContactUsers= await contact.readMoreContactReceived(req.user.id,skipNumber);
+		return res.status(200).send(newContactUsers);
+	}catch(error){
+		return res.status(500).send(error);
+	}
+};
+
 module.exports={
 	addNew:addNew,
 	findUsersContact:findUsersContact,
-	undoAddContact:undoAddContact
+	undoAddContact:undoAddContact,
+	readMoreContact:readMoreContact,
+	readMoreContactSent:readMoreContactSent,
+	readMoreContactReceived:readMoreContactReceived
 }

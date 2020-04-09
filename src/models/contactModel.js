@@ -67,6 +67,22 @@ ContactSchema.statics={
 		return this.count({
 			$and:[{"contactId":userId},{"status":false}]
 		}).exec();
+	},
+	readMoreContact(userId,skipNumber,limit){
+		return this.find({
+			$and:[{$or:[{"userId":userId},{"contactId":userId}]},
+			{"status":true}]
+		}).sort({"createdAt":-1}).skip(skipNumber).limit(limit).exec();
+	},
+	readMoreContactSent(userId,skipNumber,limit){
+		return this.find({
+			$and:[{"userId":userId},{"status":false}]
+		}).sort({"createdAt":-1}).skip(skipNumber).limit(limit).exec();
+	},
+	readMoreContactReceived(userId,skipNumber,limit){
+		return this.find({
+			$and:[{"contactId":userId},{"status":false}]
+		}).sort({"createdAt":-1}).skip(skipNumber).limit(limit).exec();
 	}
 }
 

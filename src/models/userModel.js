@@ -38,6 +38,9 @@ UserSchema.statics={
 		return this.findOne({"local.email":email}).exec();
 	},
 	findUserById(id){
+		return this.findById(id,{ _id : 1,username : 1,gender:1,address : 1,phone:1, avatar :1,local:1,facebook:1 }).exec();
+	},
+	findUserPasswordById(id){
 		return this.findById(id).exec();
 	},
 	removeById(id){

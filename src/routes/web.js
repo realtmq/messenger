@@ -55,7 +55,14 @@ let initRoutes= (app)=>{
 
     router.get("/notification/read-more",auth.checkLoggedin,notification.readMore);
 
+    router.get("/contact/read-more-contacts",auth.checkLoggedin,contact.readMoreContact);
+
+    router.get("/contact/read-more-contacts-sent",auth.checkLoggedin,contact.readMoreContactSent);
+
+    router.get("/contact/read-more-contacts-received",auth.checkLoggedin,contact.readMoreContactReceived);
+
     router.put("/notification/mark-all-as-read",auth.checkLoggedin,notification.markAllAsRead);
+
 
 
     return app.use("/",router);
