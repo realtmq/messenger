@@ -1,5 +1,5 @@
 function undoAddContact(){
-	$(".user-remove-request-contact").unbind("click").on("click",function(){ //unbind de xoa duplicate function undoAddContact
+	$(".user-remove-request-contact").unbind("click").on("click",function(){ //unbind de xoa duplicate function Undoaddcontact
 		let targetId= $(this).data("uid");
 		$.ajax({
 			url:"contact/undo-add-contact",
@@ -10,6 +10,7 @@ function undoAddContact(){
 				$("#find-user").find('div.user-add-new-contact[data-uid='+targetId+']').css("display","inline-block");
 				$("#find-user").find('div.user-remove-request-contact[data-uid='+targetId+']').hide();
 	            decreaseNotiContact("count-request-contact-sent");
+	            decreaseNotiNavbar("noti_contact_counter",1);
 		     	//socketio bai sau
 
 		     	//xoa o dang cho xac nhan

@@ -6,6 +6,7 @@ function addContact(){
 				$("#find-user").find('div.user-add-new-contact[data-uid='+targetId+']').hide();
 				$("#find-user").find('div.user-remove-request-contact[data-uid='+targetId+']').css("display","inline-block");
 				increaseNotiContact("count-request-contact-sent");
+                increaseNotiNavbar("noti_contact_counter",1);
 				//lay the 'li'	cua modal finduser chuyen sang tab dang cho xac nhan			
 				let userInfoHtml=$("#find-user").find('ul li[data-uid='+targetId+']').get(0).outerHTML;
 				$("#request-contact-sent").find("ul").prepend(userInfoHtml);
@@ -45,13 +46,14 @@ socket.on("response-add-new-contact",function(user){
                                             '<div class="user-acccept-contact-received" data-uid="'+user.id+'">'+
                                                 'Chấp nhận'+
                                             '</div>'+
-                                            '<div class="user-reject-request-contact-received action-danger" data-uid="'+user.id+'">'+
+                                            '<div class="delete-add-friend-request action-danger" data-uid="'+user.id+'">'+
                                                 'Xóa yêu cầu'+
                                             '</div>'+
                                         '</div>'+
                                     '</li>';
 
     $("#request-contact-received").find("ul").prepend(userInfoHtml);
+    deleteAddFriendRequest();
 })
 
 

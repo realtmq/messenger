@@ -32,6 +32,17 @@ let undoAddContact=async(req,res)=>{
     }
 };
 
+let deleteAddFriendRequest =async (req,res)=>{
+	try{
+		let currentUserId=req.user._id;
+		let contactId=req.body.uid;
+		let removeReq=await contact.deleteAddFriendRequest(currentUserId,contactId);
+		return res.status(200).send({success:!!removeReq});
+	}catch(error){
+		res.status(500).send(error);
+	}
+};
+
 let readMoreContact=async(req,res)=>{
 	try{
 		let skipNumber=+(req.query.skipNumber);
@@ -68,5 +79,6 @@ module.exports={
 	undoAddContact:undoAddContact,
 	readMoreContact:readMoreContact,
 	readMoreContactSent:readMoreContactSent,
-	readMoreContactReceived:readMoreContactReceived
+	readMoreContactReceived:readMoreContactReceived,
+	deleteAddFriendRequest:deleteAddFriendRequest
 }

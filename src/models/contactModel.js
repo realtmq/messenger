@@ -31,7 +31,16 @@ ContactSchema.statics={
 	},
 	removeContact(userId,contactId){
 		return this.remove({
-			$and:[{"userId":userId},{"contactId":contactId}]
+			$and:[
+			{"userId":userId},
+			{"contactId":contactId}]
+		}).exec();
+	},
+	deleteAddFriendRequest(userId,contactId){
+		return this.remove({
+			$and:[
+			{"contactId":userId},
+			{"userId":contactId}]
 		}).exec();
 	},
 	getContacts(userId,limit){

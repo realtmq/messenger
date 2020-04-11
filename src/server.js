@@ -17,7 +17,7 @@ let app=express();
 
 //init server with socketio
 let server= http.createServer(app);
-let io=socketio(server);
+let io=socketio(server); 
 
 // connect database
 connectDB();
@@ -55,7 +55,7 @@ initSockets(io);
 
 
 server.listen(port,hostname,()=>{
-  console.log("ban dang chay o "+hostname+":"+port );
+  console.log("Bạn đang chạy tại: "+hostname+":"+port );
 });
 
 

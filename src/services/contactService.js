@@ -54,6 +54,17 @@ let undoAddContact=(currentUserId,contactId)=>{
 	});
 }
 
+let deleteAddFriendRequest=(currentUserId,contactId)=>{
+	return new Promise(async (resolve,reject)=>{
+		let removeReq= await contactModel.deleteAddFriendRequest(currentUserId,contactId);
+		if(removeReq.result.n===0){
+			return reject(false);
+		}
+		//await notificationModel.model.removeRequestContactNotification(currentUserId,contactId,notificationModel.types.ADD_CONTACT);
+		resolve(removeReq.result.n);
+	});
+}
+
 let getContacts=(currentUserId)=>{
 	return new Promise(async(resolve,reject)=>{
 		try{
@@ -195,5 +206,6 @@ module.exports={
     countAllContactsReceived:countAllContactsReceived,
     readMoreContact:readMoreContact,
     readMoreContactSent:readMoreContactSent,
-    readMoreContactReceived:readMoreContactReceived
+    readMoreContactReceived:readMoreContactReceived,
+    deleteAddFriendRequest:deleteAddFriendRequest
 }
