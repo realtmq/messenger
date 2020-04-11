@@ -20,11 +20,7 @@ function callFindUser(element){
 	}
 }
 
-
 $(document).ready(function(){
-	$("#input-find-users-contact").bind("keypress",callFindUser)
-	
-
-	$("#btn-find-users-contact").bind("click",callFindUser)
-
+	$("#input-find-users-contact").bind("keypress",callFindUser);
+	$("#btn-find-users-contact").bind("click",callFindUser);
 });

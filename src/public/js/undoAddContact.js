@@ -1,5 +1,5 @@
 function undoAddContact(){
-	$(".user-remove-request-contact").bind("click",function(){
+	$(".user-remove-request-contact").unbind("click").on("click",function(){ //unbind de xoa duplicate function undoAddContact
 		let targetId= $(this).data("uid");
 		$.ajax({
 			url:"contact/undo-add-contact",
@@ -31,4 +31,8 @@ socket.on("response-undo-add-contact",function(user){
     decreaseNotiContact("count-request-contact-received");
     decreaseNotiNavbar("noti_contact_counter",1);
     decreaseNotiNavbar("noti_counter",1);
-})
+});
+
+$(document).ready(function(){
+	undoAddContact();
+});     

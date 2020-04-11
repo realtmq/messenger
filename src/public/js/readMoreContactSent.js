@@ -27,13 +27,14 @@ $(document).ready(function(){
                                             '<div class="user-address">'+
                                                 '<span>&nbsp '+user.address+'</span>'+
                                             '</div>'+
-                                            '<div class="user-remove-request-sent action-danger" data-uid="'+user._id+'">'+
+                                            '<div class="user-remove-request-contact action-danger display-important" data-uid="'+user._id+'">'+
                                                 'Hủy yêu cầu'+
                                             '</div>'+
                                         '</div>'+
                                     '</li>'
                                     );
 			});
+			undoAddContact(); //js/undoAddContact  
 			$("#link-read-more-contact-sent").css("display","inline-block");
 		    $(".read-more-contact-sent-loader").css("display","none");
 

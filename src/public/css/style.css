@@ -198,7 +198,6 @@ label:focus,
 .contactPanel .user-remove-contact,
 .contactPanel .user-remove-request-contact,
 .contactPanel .user-acccept-contact-received,
-.contactPanel .user-remove-request-sent,
 .contactPanel .user-reject-request-contact-received {
   box-sizing: border-box;
   display: inline-flex;
@@ -1462,5 +1461,9 @@ label:focus,
     height: 72px;
     opacity: 0;
   }
+}
+
+.display-important{
+  display: inline-block !important; 
 }
 
