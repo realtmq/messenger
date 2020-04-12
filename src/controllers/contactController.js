@@ -43,6 +43,17 @@ let deleteAddFriendRequest =async (req,res)=>{
 	}
 };
 
+let acceptAddFriendRequest= async(req,res)=>{
+	try{
+		let currentUserId=req.user._id;
+		let contactId=req.body.uid;
+		let addFriend=await contact.acceptAddFriendRequest(currentUserId,contactId);
+		return res.status(200).send({success:!!addFriend});
+	}catch(error){
+		return res.status(500).send(error);
+	}
+}
+
 let readMoreContact=async(req,res)=>{
 	try{
 		let skipNumber=+(req.query.skipNumber);
@@ -80,5 +91,6 @@ module.exports={
 	readMoreContact:readMoreContact,
 	readMoreContactSent:readMoreContactSent,
 	readMoreContactReceived:readMoreContactReceived,
-	deleteAddFriendRequest:deleteAddFriendRequest
+	deleteAddFriendRequest:deleteAddFriendRequest,
+	acceptAddFriendRequest:acceptAddFriendRequest
 }

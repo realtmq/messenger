@@ -1,6 +1,6 @@
 import {notification,contact} from "./../services/index";
 let getHome= async (req,res) =>{
-	//get 10 latest noti in dab
+	//Lấy 10 thông báo gần nhất trong database
 	let notifications=await notification.getNotifications(req.user._id);
 	//get all unread notification
 	let countUnreadNotifications =await notification.getUnreadNotifications(req.user._id);

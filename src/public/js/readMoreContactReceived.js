@@ -29,7 +29,7 @@ $(document).ready(function(){
                                             '<div class="user-address">'+
                                                 '<span>&nbsp '+user.address+'</span>'+
                                             '</div>'+
-                                            '<div class="user-acccept-contact-received" data-uid="'+user._id+'">'+
+                                            '<div class="user-accept-contact-received" data-uid="'+user._id+'">'+
                                                 'Chấp nhận'+
                                             '</div>'+
                                             '<div class="delete-add-friend-request action-danger" data-uid="'+user._id+'">'+
@@ -39,6 +39,7 @@ $(document).ready(function(){
                                     '</li>');
 			});
             deleteAddFriendRequest(); // Gọi hàm xóa lời mời kết bạn cho các thẻ LI mới được render bên trên
+            acceptAddFriendRequest(); // Gọi hàm chấp nhận lời mời kết bạn cho các thẻ li mới được render
 			$("#link-read-more-contact-received").css("display","inline-block");  //hien nut xem them
 		    $(".read-more-contact-received-loader").css("display","none");  //ẩn đi loader
 		});

@@ -29,6 +29,7 @@ let addNew=(currentUserId,contactId)=>{
 			userId:currentUserId,
 			contactId:contactId
 		}
+		let newContact=await contactModel.createNew(newContactItem);
 
 		//create notification
 		let newNotificationItem={
@@ -38,8 +39,6 @@ let addNew=(currentUserId,contactId)=>{
 		}
 		await notificationModel.model.createNew(newNotificationItem);
 
-
-	    let newContact=await contactModel.createNew(newContactItem);
 	    resolve(newContact);
 	});
 }
@@ -62,6 +61,23 @@ let deleteAddFriendRequest=(currentUserId,contactId)=>{
 		}
 		//await notificationModel.model.removeRequestContactNotification(currentUserId,contactId,notificationModel.types.ADD_CONTACT);
 		resolve(removeReq.result.n);
+	});
+}
+
+let acceptAddFriendRequest=(currentUserId,contactId)=>{
+	return new Promise(async(resolve,reject)=>{
+		let acceptReq=await contactModel.acceptAddFriendRequest(currentUserId,contactId);
+		if(acceptReq.nModified===0){   //nModified là số đối tượng đã được update
+			return reject(false);
+		}
+		// tạo thông báo lời mời kết bạn đã được chấp nhận trong Database
+		let newNotificationItem={
+			senderId:currentUserId,
+			receiverId:contactId,
+			type: notificationModel.types.ADD_CONTACT_SUCCESS 
+		}
+		await notificationModel.model.createNew(newNotificationItem);
+		resolve(true);
 	});
 }
 
@@ -207,5 +223,6 @@ module.exports={
     readMoreContact:readMoreContact,
     readMoreContactSent:readMoreContactSent,
     readMoreContactReceived:readMoreContactReceived,
-    deleteAddFriendRequest:deleteAddFriendRequest
+    deleteAddFriendRequest:deleteAddFriendRequest,
+    acceptAddFriendRequest:acceptAddFriendRequest
 }

@@ -46,7 +46,6 @@ let hostname="localhost";
 
 initRoutes(app);
 
-//
 configSocketIO(io,cookieParser,session.sessionStore);
 // init all socket
 initSockets(io);
@@ -55,7 +54,7 @@ initSockets(io);
 
 
 server.listen(port,hostname,()=>{
-  console.log("Bạn đang chạy tại: "+hostname+":"+port );
+  console.log("You are running at: http://"+hostname+":"+port );
 });
 
 

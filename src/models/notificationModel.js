@@ -38,11 +38,10 @@ NotificationSchema.statics={
 		},{"isRead":true}).exec();
 	}
 }
-
 const NOTIFICATION_TYPES={
-	ADD_CONTACT:"add_contact"
+	ADD_CONTACT:"add_contact",
+	ADD_CONTACT_SUCCESS:"add_contact_success"
 }
-
 const NOTIFICATION_CONTENTS={
 	getContent:(notificationType,isRead,userId,userName,userAvatar,)=>{
 		if(notificationType===NOTIFICATION_TYPES.ADD_CONTACT){
@@ -50,6 +49,13 @@ const NOTIFICATION_CONTENTS={
 			return '<div class="notification-unread" data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã gửi cho bạn một lời mời kết bạn!</div>';
               }
    			return '<div data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã gửi cho bạn một lời mời kết bạn!</div>';
+
+		}
+		if(notificationType === NOTIFICATION_TYPES.ADD_CONTACT_SUCCESS){
+			if(!isRead){
+			return '<div class="notification-unread" data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã chấp nhận yêu cầu kết bạn!</div>';
+              }
+   			return '<div data-uid="'+userId+'"><img class="avatar-small" src="images/users/'+userAvatar+'" alt="">  <strong>'+userName+'</strong> đã chấp nhận yêu cầu kết bạn!</div>';
 
 		}
 		return "add_contact loi";

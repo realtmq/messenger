@@ -55,6 +55,8 @@ let initRoutes= (app)=>{
 
     router.delete("/contact/delete-add-friend-request",auth.checkLoggedin,contact.deleteAddFriendRequest);
 
+    router.put("/contact/accept-add-friend-request",auth.checkLoggedin,contact.acceptAddFriendRequest);
+
     router.get("/notification/read-more",auth.checkLoggedin,notification.readMore);
 
     router.get("/contact/read-more-contacts",auth.checkLoggedin,contact.readMoreContact);
