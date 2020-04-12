@@ -36,8 +36,8 @@ $(document).ready(function(){
                                         '</div>'+
                                     '</li>' 
                         );
-
 			});
+            unfriend(); //js/unfriend.js //nạp hàm hủy kết bạn
 			$("#link-read-more-contact").css("display","inline-block");
 		    $(".read-more-contact-loader").css("display","none");
 

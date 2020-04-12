@@ -21,6 +21,7 @@ function acceptAddFriendRequest(){
                         '</div>');
 		                let userInforHTML=userInfor.get(0).outerHTML; //lấy ra mã html trong dom
 		                $("#contacts").find("ul").prepend(userInforHTML); //chèn thêm thẻ user vào danh bạ 
+		                unfriend(); //js/unfriend.js //nạp hàm hủy kết bạn
 		                $(userInfor).remove(); //xóa đi yêu cầu kết bạn ở modal request-received
 		                decreaseNotiContact("count-request-contact-received"); 
 		                increaseNotiContact("count-contacts");
@@ -50,9 +51,7 @@ socket.on("response-accept-add-friend-request",function(user){
                                     '<img src="images/users/'+user.avatar+'" alt="">'+
                                 '</div>'+
                                 '<div class="user-name">'+
-                                    '<p>'+
-                                        user.username+
-                                    '</p>'+
+                                    '<p>'+user.username+'</p>'+
                                 '</div>'+
                                 '<br>'+
                                 '<div class="user-address">'+
@@ -68,6 +67,7 @@ socket.on("response-accept-add-friend-request",function(user){
                         '</li>';
 
     $("#contacts").find("ul").prepend(userHTML); //thêm vào modal danh bạ
+    unfriend(); //js/unfriend.js //nạp hàm hủy kết bạn
 });
 
 $(document).ready(function(){

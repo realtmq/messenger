@@ -35,9 +35,7 @@ socket.on("response-add-new-contact",function(user){
                                              '   <img src="images/users/'+user.avatar+'" alt="">'+
                                             '</div>'+
                                             '<div class="user-name">'+
-                                                '<p>'+
-                                                    user.username+
-                                                '</p>'+
+                                                '<p>'+user.username+'</p>'+
                                             '</div>'+
                                             '<br>'+
                                             '<div class="user-address">'+

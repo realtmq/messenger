@@ -45,6 +45,12 @@ ContactSchema.statics={
 			{"status":false}]
 		}).exec();
 	},
+	unfriend(userId,contactId){
+		return this.remove({
+			$or:[{$and:[{"userId":userId},{"contactId":contactId },{"status":true}]},
+			{$and:[{"userId":contactId},{"contactId":userId},{"status":true}]}]
+		}).exec();
+	},
 	acceptAddFriendRequest(userId,contactId){
 		return this.update({
 			$and:[{"contactId":userId},

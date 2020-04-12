@@ -81,6 +81,15 @@ let acceptAddFriendRequest=(currentUserId,contactId)=>{
 	});
 }
 
+let unfriend=(currentUserId,contactId)=>{
+	return new Promise(async(resolve,reject)=>{
+		let unfriend=await contactModel.unfriend(currentUserId,contactId);
+		if(unfriend.result.n===0){
+			return reject(false);
+		}
+		resolve(true);
+	});
+}
 let getContacts=(currentUserId)=>{
 	return new Promise(async(resolve,reject)=>{
 		try{
@@ -224,5 +233,6 @@ module.exports={
     readMoreContactSent:readMoreContactSent,
     readMoreContactReceived:readMoreContactReceived,
     deleteAddFriendRequest:deleteAddFriendRequest,
-    acceptAddFriendRequest:acceptAddFriendRequest
+    acceptAddFriendRequest:acceptAddFriendRequest,
+    unfriend:unfriend
 }
