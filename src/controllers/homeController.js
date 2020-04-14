@@ -1,4 +1,4 @@
-import {notification,contact} from "./../services/index";
+import {notification,contact,message} from "./../services/index";
 let getHome= async (req,res) =>{
 	//Lấy 10 thông báo gần nhất trong database
 	let notifications=await notification.getNotifications(req.user._id);
@@ -17,6 +17,13 @@ let getHome= async (req,res) =>{
 	let countContactReceived = await contact.countAllContactsReceived(req.user._id);
 	let countContactNotiNavbar=countContactSent+countContactReceived;
 
+	//lấy các cuộc trò chuyện trong database 
+	let getAllConversationItems = await message.getAllConversationItems(req.user._id);
+	let userConversations =getAllConversationItems.userConversations;
+	let groupConversations=getAllConversationItems.groupConversations;
+	let allConversations=getAllConversationItems.allConversations;
+
+
 	return res.render("main/home/home",{
 		errors: req.flash("errors"),
 		success:req.flash("success"),
@@ -29,7 +36,10 @@ let getHome= async (req,res) =>{
 		countContacts:countContact,
 		countContactsSent:countContactSent,
 		countContactsReceived:countContactReceived,
-		countContactNotiNavbar:countContactNotiNavbar		
+		countContactNotiNavbar:countContactNotiNavbar,
+		userConversations:userConversations,
+		groupConversations:groupConversations,
+		allConversations:allConversations
 	});
     };
 
