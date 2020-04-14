@@ -56,13 +56,13 @@ ContactSchema.statics={
 			$and:[{"contactId":userId},
 			{"userId":contactId},
 			{"status":false}]
-		},{"status":true}).exec();
+		},{"status":true,"updatedAt":Date.now()}).exec();
 	},
 	getContacts(userId,limit){
 		return this.find({
 			$and:[{$or:[{"userId":userId},{"contactId":userId}]},
 			{"status":true}]
-		}).sort({"createdAt":-1}).limit(limit).exec();
+		}).sort({"updatedAt":-1}).limit(limit).exec();
 	},
 
 	getContactsSent(userId,limit){
@@ -96,7 +96,7 @@ ContactSchema.statics={
 		return this.find({
 			$and:[{$or:[{"userId":userId},{"contactId":userId}]},
 			{"status":true}]
-		}).sort({"createdAt":-1}).skip(skipNumber).limit(limit).exec();
+		}).sort({"updatedAt":-1}).skip(skipNumber).limit(limit).exec();
 	},
 	readMoreContactSent(userId,skipNumber,limit){
 		return this.find({
