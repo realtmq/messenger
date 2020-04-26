@@ -12,7 +12,7 @@
     <div class="tab-content">
         <div class="tab-pane active" id="all-chat">   <!--tat cac loai tro chuyen-->
             <ul class="people no-padding-start">
-            <% allConversations.forEach(function(item){%>
+            <% getAllConversationWithMessages.forEach(function(item){%>
                 <% if(item.members){%>
                     <a href="#uid_<%=item._id%>" class="room-chat" data-target="#to_<%=item._id%>">
                        <li class="person group-chat" data-chat="<%=item._id%>">
@@ -29,8 +29,20 @@
                                 <%=item.name%>
                                 <%}%>
                                </span>
-                             <span class="time">Hai giờ trước</span>
-                             <span class="preview">Chào cả nhóm</span>
+                             <span class="time">
+                                 <%=convertTimestampToHumanTime(lastItemOfArray(item.messages).createdAt)%>
+                             </span>
+                             <span class="preview">
+                                 <%if(lastItemOfArray(item.messages).messageType==="text"){%>
+                                 <%=lastItemOfArray(item.messages).text%>
+                                 <%}%>
+                                 <%if(lastItemOfArray(item.messages).messageType==="image"){%>
+                                 Hình ảnh
+                                 <%}%>
+                                 <%if(lastItemOfArray(item.messages).messageType==="file"){%>
+                                 Tệp đính kèm
+                                 <%}%>
+                             </span>
                          </li>
                      </a> 
                 <%}else{%>
@@ -44,8 +56,20 @@
                          
                           <%= item.username %>
                         </span>
-                        <span class="time">Một phút trước</span>
-                      <span class="preview">Xin chào</span>
+                        <span class="time">
+                            <%=convertTimestampToHumanTime(lastItemOfArray(item.messages).createdAt)%>
+                        </span>
+                      <span class="preview">
+                          <%if(lastItemOfArray(item.messages).messageType==="text"){%>
+                             <%=lastItemOfArray(item.messages).text%>
+                             <%}%>
+                             <%if(lastItemOfArray(item.messages).messageType==="image"){%>
+                             Hình ảnh
+                             <%}%>
+                             <%if(lastItemOfArray(item.messages).messageType==="file"){%>
+                             Tệp đính kèm
+                             <%}%>
+                      </span>
                   </li>
                 </a>
                     <%}%>
@@ -63,7 +87,8 @@
         </div>
         <div class="tab-pane" id="user-chat"> <!--tat cac loai tro chuyen ca nhan-->
             <ul class="people no-padding-start">
-                <% userConversations.forEach(function(item){%>
+                <% getAllConversationWithMessages.forEach(function(item){%>
+                <%if(!item.members){%>
                 <a href="#uid_<%=item._id%>" class="room-chat" data-target="#to_<%=item._id%>">
                     <li class="person" data-chat="<%=item._id%>">
                         <div class="left-avatar">
@@ -74,10 +99,23 @@
             
                           <%= item.username%>
                         </span>
-                        <span class="time">Một phút trước</span>
-                      <span class="preview">Xin chào</span>
+                        <span class="time">
+                            <%=convertTimestampToHumanTime(lastItemOfArray(item.messages).createdAt)%>
+                        </span>
+                    <span class="preview">
+                    <%if(lastItemOfArray(item.messages).messageType==="text"){%>
+                             <%=lastItemOfArray(item.messages).text%>
+                             <%}%>
+                             <%if(lastItemOfArray(item.messages).messageType==="image"){%>
+                             Hình ảnh
+                             <%}%>
+                             <%if(lastItemOfArray(item.messages).messageType==="file"){%>
+                             Tệp đính kèm
+                             <%}%>      
+                    </span>
                   </li>
                 </a>
+                  <%}%>
                 <%})%>
             </ul>
             </ul>
@@ -92,7 +130,8 @@
         </div>
         <div class="tab-pane" id="group-chat"> <!--tat cac loai tro chuyen nhom -->
           <ul class="people no-padding-start">
-            <% groupConversations.forEach(function(item){%>
+            <% getAllConversationWithMessages.forEach(function(item){%>
+            <%if(item.members){%>
             <a href="#uid_<%=item._id%>" class="room-chat" data-target="#to_<%=item._id%>">
                        <li class="person group-chat" data-chat="<%=item._id%>">
                             <div class="left-avatar">
@@ -107,10 +146,23 @@
                                 <%=item.name%>
                                 <%}%>
                               </span>
-                             <span class="time">Hai giờ trước</span>
-                             <span class="preview">Chào cả nhóm</span>
+                             <span class="time">
+                                 <%=convertTimestampToHumanTime(lastItemOfArray(item.messages).createdAt)%>
+                             </span>
+                             <span class="preview">
+                                 <%if(lastItemOfArray(item.messages).messageType==="text"){%>
+                             <%=lastItemOfArray(item.messages).text%>
+                             <%}%>
+                             <%if(lastItemOfArray(item.messages).messageType==="image"){%>
+                             Hình ảnh
+                             <%}%>
+                             <%if(lastItemOfArray(item.messages).messageType==="file"){%>
+                             Tệp đính kèm
+                             <%}%> 
+                             </span>
                          </li>
                      </a>
+                     <%}%>
             <%})%>
             </ul>
                 <hr>
