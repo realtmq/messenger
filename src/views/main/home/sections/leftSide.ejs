@@ -13,8 +13,8 @@
         <div class="tab-pane active" id="all-chat">   <!--tat cac loai tro chuyen-->
             <ul class="people no-padding-start">
             <% allConversations.forEach(function(item){%>
-                <% if(item.member){%>
-                    <a href="#uid_<%=item._id%>" class="room-chat">
+                <% if(item.members){%>
+                    <a href="#uid_<%=item._id%>" class="room-chat" data-target="#to_<%=item._id%>">
                        <li class="person group-chat" data-chat="<%=item._id%>">
                             <div class="left-avatar">
                                 <!-- <div class="dot"></div> -->
@@ -34,18 +34,15 @@
                          </li>
                      </a> 
                 <%}else{%>
-                    <a href="#uid_<%=item._id%>" class="room-chat">
-                    <li class="person" data-chat="<%=item._id%>">
+                    <a href="#uid_<%=item._id%>" class="room-chat" data-target="#to_<%=item._id%>">
+                     <li class="person" data-chat="<%=item._id%>">
                         <div class="left-avatar">
                             <div class="dot"></div>
                             <img src="images/users/<%=item.avatar%>" alt="">
                             </div>
                         <span class="name">
-                          <% if(item.username.length>15){%>
-                          <%=item.username.substr(0,14)%><span>...</span>
-                          <% }else{ %>
-                          <%=item.username%>
-                          <%}%>
+                         
+                          <%= item.username %>
                         </span>
                         <span class="time">Một phút trước</span>
                       <span class="preview">Xin chào</span>
@@ -66,19 +63,16 @@
         </div>
         <div class="tab-pane" id="user-chat"> <!--tat cac loai tro chuyen ca nhan-->
             <ul class="people no-padding-start">
-                <% allConversations.forEach(function(item){%>
-                <a href="#uid_<%=item._id%>" class="room-chat">
+                <% userConversations.forEach(function(item){%>
+                <a href="#uid_<%=item._id%>" class="room-chat" data-target="#to_<%=item._id%>">
                     <li class="person" data-chat="<%=item._id%>">
                         <div class="left-avatar">
                             <div class="dot"></div>
                             <img src="images/users/<%=item.avatar%>" alt="">
                             </div>
                         <span class="name">
-                          <% if(item.username.length>15){%>
-                          <%=item.username.substr(0,14)%><span>...</span>
-                          <% }else{ %>
-                          <%=item.username%>
-                          <%}%>
+            
+                          <%= item.username%>
                         </span>
                         <span class="time">Một phút trước</span>
                       <span class="preview">Xin chào</span>
@@ -99,7 +93,7 @@
         <div class="tab-pane" id="group-chat"> <!--tat cac loai tro chuyen nhom -->
           <ul class="people no-padding-start">
             <% groupConversations.forEach(function(item){%>
-            <a href="#uid_<%=item._id%>" class="room-chat">
+            <a href="#uid_<%=item._id%>" class="room-chat" data-target="#to_<%=item._id%>">
                        <li class="person group-chat" data-chat="<%=item._id%>">
                             <div class="left-avatar">
                                 <!-- <div class="dot"></div> -->

@@ -14,15 +14,15 @@ function nineScrollLeft() {
   });
 }
 
-function nineScrollRight() {
-  $('.right .chat').niceScroll({
+function nineScrollRight(divId) {
+  $('.right .chat[data-chat = '+divId+']').niceScroll({
     smoothscroll: true,
     horizrailenabled: false,
     cursorcolor: '#ECECEC',
     cursorwidth: '7px',
     scrollspeed: 50
   });
-  $('.right .chat').scrollTop($('.right .chat')[0].scrollHeight);
+  $('.right .chat[data-chat = '+divId+']').scrollTop($('.right .chat[data-chat = '+divId+']')[0].scrollHeight);
 }
 
 function enableEmojioneArea(chatId) {
@@ -85,18 +85,21 @@ function configNotification() {
 }
 
 function gridPhotos(layoutNumber) {
-  let countRows = Math.ceil($('#imagesModal').find('div.all-images>img').length / layoutNumber);
+  $(".show-images").unbind("click").on("click",function(){
+    let href=$(this).attr("href");
+    let modalImageId= href.replace("#"," ");
+    let countRows = Math.ceil($(href).find('div.all-images>img').length / layoutNumber);
   let layoutStr = new Array(countRows).fill(layoutNumber).join("");
-  $('#imagesModal').find('div.all-images').photosetGrid({
+  $(href).find('div.all-images').photosetGrid({
     highresLinks: true,
     rel: 'withhearts-gallery',
     gutter: '2px',
     layout: layoutStr,
     onComplete: function() {
-      $('.all-images').css({
+      $(href).find('.all-images').css({
         'visibility': 'visible'
       });
-      $('.all-images a').colorbox({
+      $(href).find('.all-images a').colorbox({
         photo: true,
         scalePhotos: true,
         maxHeight: '90%',
@@ -104,6 +107,8 @@ function gridPhotos(layoutNumber) {
       });
     }
   });
+  });
+  
 }
 
 function addFriendsToGroup() {
@@ -155,6 +160,20 @@ function changeTypeChat(){
   }); 
 }
 
+function chanceScreenChat(){
+  $(".room-chat").unbind("click").on("click",function(){
+    $(".person").removeClass("active");
+    $(this).find("li").addClass("active"); 
+    $(this).tab("show");
+    // cau hinh thanh cuon ben box chat
+    let divId= $(this).find("li").data("chat");
+    console.log(divId);
+    nineScrollRight(divId);
+  });
+}
+
+
+
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
@@ -164,7 +183,6 @@ $(document).ready(function() {
 
   // Cấu hình thanh cuộn
   nineScrollLeft();
-  nineScrollRight();
 
   // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
   enableEmojioneArea("17071995");
@@ -187,4 +205,10 @@ $(document).ready(function() {
 
   //thay đổi kiểu trò chuyện
   changeTypeChat();
+
+  //thay doi man hinh chat
+  chanceScreenChat();
+
+  //click vao phan tu dau tien khi load trang
+  $("ul.people").find("li")[0].click();
 });

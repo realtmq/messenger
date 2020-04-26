@@ -24,10 +24,24 @@ let getAllConversationItems=(currentUserId)=>{
 		    allConversations = _.sortBy(allConversations,(item)=>{
 		    	return -item.updatedAt;
 		    });	
+
+		    //lay tin nhan cua moi cuoc tro chuyen
+		    let getAllConversationWithMessagesPromise = allConversations.map(async(conversation)=>{
+		    	let getMessages = await messageModel.model.getMessages(currentUserId,conversation._id,30);//lay ra 30 tin nhan gan nhat
+		    	conversation=conversation.toObject();
+		    	conversation.messages=getMessages;
+		    	return conversation;
+		    });
+		    let getAllConversationWithMessages = await Promise.all(getAllConversationWithMessagesPromise);
+		    
+		    getAllConversationWithMessages= _.sortBy(getAllConversationWithMessages,(item)=>{
+		    	return -item.updatedAt;
+		    });
 		    resolve({
 		    	userConversations:userConversations,
 		    	groupConversations:groupConversations,
-		    	allConversations:allConversations
+		    	allConversations:allConversations,
+		    	getAllConversationWithMessages:getAllConversationWithMessages
 		    });
 		}catch(error){
 			reject(error);
