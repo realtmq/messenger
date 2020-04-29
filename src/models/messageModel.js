@@ -7,12 +7,12 @@ let MessageSchema =new Schema({
 	messageType:String,
 	sender:{
 		id:String,
-		username:String,
+		name:String,
 		avatar:String
 	},
 	receiver:{
 		id:String,
-		username:String,
+		name:String,
 		avatar:String
 	},
 	text:String,
@@ -23,11 +23,17 @@ let MessageSchema =new Schema({
 });
 
 MessageSchema.statics={
-	getMessages(senderId,receiverId,limit){
+	createNew(item){
+		return this.create(item);
+	},
+	getMessagesPersonal(senderId,receiverId,limit){
 		return this.find({
 			$or:[{$and:[{"senderId":senderId},{"receiverId":receiverId}]},
 			{$and:[{"senderId":receiverId},{"receiverId":senderId}]}]
 		}).sort({"createdAt":1}).limit(limit).exec();
+	},
+	getMessagesInGroup(receiverId,limit){
+		return this.find({"receiverId":receiverId}).sort({"createdAt":1}).limit(limit).exec();
 	}
 };
 

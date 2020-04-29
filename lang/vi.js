@@ -6,7 +6,8 @@ export const transValidation={
 	update_username:"User name tu 3-17 ki tu,khong co cac ki tu dac biet",
 	update_gender:"Hack cl",
 	update_address:"dia chi tu 4-40 ki tu",
-	update_phone:"bat dau bang 0,gom 10-11 ki tu"
+	update_phone:"bat dau bang 0,gom 10-11 ki tu",
+	message_text_emoji_incorrect:"Tin nhan khong hop le,toi da 400 ki tu"
 }
 
 export const transErrors={
@@ -19,7 +20,8 @@ export const transErrors={
 	server_error:"có lỗi phía server",
 	avatar_type_error:"File phai co dang jpg,jpeg,png",
 	avatar_size_error:"dung luong qua 1 mb",
-	password_invalid:"Ban nhap sai mat khau hien tai"
+	password_invalid:"Ban nhap sai mat khau hien tai",
+	group_chat_not_found:"ko tim thay cuoc tro chuyen"
 }
 
 export const transSuccess={
