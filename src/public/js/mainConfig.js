@@ -41,7 +41,7 @@ function enableEmojioneArea(divId) {
         $('#write-chat-'+divId).val(this.getText());
       },
       click:function(){
-        textWithEmoji(divId);   
+        textWithEmoji(divId); 
       }
     },
   });
@@ -176,7 +176,14 @@ function chanceScreenChat(){
     enableEmojioneArea(divId);
   });
 }
-
+ function convertEmoji(){
+  $(".convert-emoji").each(function() {
+            var original = $(this).html();
+            // use .shortnameToImage if only converting shortnames (for slightly better performance)
+            var converted = joypixels.toImage(original);
+            $(this).html(converted);
+        });
+ }
 
 
 $(document).ready(function() {
@@ -214,4 +221,7 @@ $(document).ready(function() {
 
   //click vao phan tu dau tien khi load trang
   $("ul.people").find("a")[0].click();
+  
+  //convert unicode to imoji
+  convertEmoji();
 });

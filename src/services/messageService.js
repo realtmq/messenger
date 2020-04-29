@@ -32,10 +32,10 @@ let getAllConversationItems=(currentUserId)=>{
 		    	conversation=conversation.toObject();
 		    	if(conversation.members){
 		    		let getMessages = await messageModel.model.getMessagesInGroup(conversation._id,30);//lay ra 30 tin nhan gan nhat
-		    	    conversation.messages=getMessages; 
+		    	    conversation.messages=  _.reverse(getMessages); 
 		    	}else{
 		    	    let getMessages = await messageModel.model.getMessagesPersonal(currentUserId,conversation._id,30);//lay ra 30 tin nhan gan nhat
-		    	    conversation.messages=getMessages;
+		    	    conversation.messages=_.reverse(getMessages);
 		        }
 		    	return conversation;  
 		    });
@@ -102,7 +102,7 @@ let addNewTextEmoji=(sender,receiverId,messageVal,isChatGroup)=>{
 					createdAt:Date.now()
 				}
 			let newMessage= await messageModel.model.createNew(newMessageItem);
-			await contactModel.updateWhenHasNewMessage(sender.id,userReceiver_id);
+			await contactModel.updateWhenHasNewMessage(sender.id,userReceiver._id);
 			resolve(newMessage);
 		}
 	}catch(error){
