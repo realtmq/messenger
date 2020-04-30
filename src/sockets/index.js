@@ -6,6 +6,7 @@ import unfriend from "./contact/unfriend";
 import textWithEmoji from "./chat/textWithEmoji";
 import typingOn from "./chat/typingOn";
 import typingOff from "./chat/typingOff";
+import userOnlineOffline from "./chat/userOnlineOffline";
  
 let initSocket =(io)=>{
 	addNewContact(io);
@@ -16,6 +17,7 @@ let initSocket =(io)=>{
 	textWithEmoji(io);
 	typingOn(io);
 	typingOff(io);
+	userOnlineOffline(io);
 }
 
 module.exports =initSocket;
