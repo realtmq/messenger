@@ -42,6 +42,11 @@ function enableEmojioneArea(divId) {
       },
       click:function(){
         textWithEmoji(divId); 
+        //bật chức năng người dùng gõ trò chuyện
+        typingOn(divId);
+      },
+      blur:function(){
+        typingOff(divId);
       }
     },
   });

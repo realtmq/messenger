@@ -60,6 +60,13 @@ function textWithEmoji(divId){
 			    //Emit socket lên server
 
 			    socket.emit("text-with-emoji",dataToEmit);
+			    // 7 remove typing real time
+			    typingOff(divId);
+			    // 8 remove all typing
+			    let check=$('.chat[data-chat='+data.currentUserId+']').find("div.bubble-typing-gif");
+			        if(check.length){
+			      	    check.remove();
+			        }
 
 			}).fail(function(response){
 				console.log(response);
