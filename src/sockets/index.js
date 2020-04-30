@@ -3,6 +3,7 @@ import undoAddContact from "./contact/undoAddContact";
 import deleteAddFriendRequest from "./contact/deleteAddFriendRequest";
 import acceptAddFriendRequest from "./contact/acceptAddFriendRequest";
 import unfriend from "./contact/unfriend";
+import textWithEmoji from "./chat/textWithEmoji";
  
 let initSocket =(io)=>{
 	addNewContact(io);
@@ -10,6 +11,7 @@ let initSocket =(io)=>{
 	deleteAddFriendRequest(io);
 	acceptAddFriendRequest(io);
 	unfriend(io);
+	textWithEmoji(io);
 }
 
 module.exports =initSocket;

@@ -1,3 +1,4 @@
+//phía người gửi tin nhắn
 function textWithEmoji(divId){
 	$(".emojionearea").unbind("keyup").on("keyup",function(element){
 		let currentEmojioneArea=$(this); // lấy DOM hiện tại của khung chat
@@ -20,15 +21,23 @@ function textWithEmoji(divId){
 				// let messageOfMe= $('<div class="bubble me data-mess-id="'+data.message._id+'"</div>');
 				// messageOfMe.html('<img src="/images/users/'+data.message.sender.avatar+'" class="avatar-small" title="'+data.message.sender.name+'">');
 				//messageOfMe.text(data.message.text);
-
                 
+                let dataToEmit={
+                	message:data.message
+                }
+                //tạo 1 div tin nhắn gửi đi
 				divMessage=$('<div class="convert-emoji bubble me" data-mess-id="'+data.message._id+'"><img src="/images/users/'+data.message.sender.avatar+'" class="avatar-small" title="'+data.message.sender.name+'">'+data.message.text+'</div>');
 				//nếu là group chat thì tăng biến đếm lên 1
                 if (dataTextForSend.isChatGroup) {
 					increaseNumberMessageGroup(divId);
-				}
+					dataToEmit.groupId= targetId;
+				}else{
+				dataToEmit.contactId=targetId;
+			    }
+				// chuyển unicode sang emoji
 				let convertEmoji=emojione.toImage(divMessage.html());
 				divMessage.html(convertEmoji);
+
 
 				$('.right .chat[data-chat='+divId+']').append(divMessage);
 				nineScrollRight(divId);
@@ -37,7 +46,7 @@ function textWithEmoji(divId){
 				currentEmojioneArea.find('.emojionearea-editor').text(" ");
 
 				//change preview message in leftside
-				$('.person[data-chat='+divId+']').find("span.time").html(moment(data.message.createdAt).locale("vi").startOf("seconds").fromNow());
+				$('.person[data-chat='+divId+']').find("span.time").removeClass("message-time-realtime").html(moment(data.message.createdAt).locale("vi").startOf("seconds").fromNow());
 				$('.person[data-chat='+divId+']').find("span.preview").html(emojione.toImage(data.message.text));
 
 				//move conversation to Top
@@ -50,9 +59,42 @@ function textWithEmoji(divId){
 
 			    //Emit socket lên server
 
+			    socket.emit("text-with-emoji",dataToEmit);
+
 			}).fail(function(response){
 				console.log(response);
 			});
 		}
 	});
 }
+
+// Phía người nhận tin nhắn
+$(document).ready(function(){
+	socket.on("response-text-with-emoji",function(data){
+		let divId="";
+		if(data.currentUserId){
+			divId=data.currentUserId;
+		}else{
+			divId=data.groupId;
+			increaseNumberMessageGroup(divId);
+		}
+		divMessage=$('<div class="convert-emoji bubble you" data-mess-id="'+data.message._id+'"><img src="/images/users/'+data.message.sender.avatar+'" class="avatar-small" title="'+data.message.sender.name+'">'+data.message.text+'</div>');
+
+		let convertEmoji=emojione.toImage(divMessage.html());
+		divMessage.html(convertEmoji);
+
+		$('.right .chat[data-chat='+divId+']').append(divMessage);
+		nineScrollRight(divId);
+
+		$('.person[data-chat='+divId+']').find("span.time").addClass("message-time-realtime").html(moment(data.message.createdAt).locale("vi").startOf("seconds").fromNow());
+		$('.person[data-chat='+divId+']').find("span.preview").html(emojione.toImage(data.message.text));
+
+        //move conversation to Top
+	    $('.person[data-chat='+divId+']').on("click.moveConversationToTheTop",function(){
+	    	let dataToMove= $(this).parent();
+	    	$(this).closest("ul").prepend(dataToMove);
+	    	$(this).off("click.moveConversationToTheTop"); //huy ngay su kien click
+	    });
+	    $('.person[data-chat='+divId+']').click();
+	});
+});
