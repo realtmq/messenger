@@ -7,6 +7,7 @@ import textWithEmoji from "./chat/textWithEmoji";
 import typingOn from "./chat/typingOn";
 import typingOff from "./chat/typingOff";
 import userOnlineOffline from "./chat/userOnlineOffline";
+import imageChat from "./chat/imageChat";
  
 let initSocket =(io)=>{
 	addNewContact(io);
@@ -18,6 +19,7 @@ let initSocket =(io)=>{
 	typingOn(io);
 	typingOff(io);
 	userOnlineOffline(io);
+	imageChat(io);
 }
 
 module.exports =initSocket;
