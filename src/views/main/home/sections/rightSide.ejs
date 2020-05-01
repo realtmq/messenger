@@ -70,12 +70,12 @@
           <input type="text" class="write-chat chat-in-group" id="write-chat-<%=item._id%>" data-chat="<%=item._id%>">
           <div class="icons">
               <a href="#" class="icon-chat" data-chat="<%=item._id%>"><i class="fa fa-smile-o"></i></a>
-              <label for="image-chat">
-                  <input type="file" id="image-chat" name="my-image-chat" class="image-chat" data-chat="<%=item._id%>">
+              <label for="image-chat-<%=item._id%>">
+                  <input type="file" id="image-chat-<%=item._id%>" name="my-image-chat chat-in-group" class="image-chat" data-chat="<%=item._id%>">
                   <i class="fa fa-photo"></i>
               </label>
-              <label for="attach-chat">
-                  <input type="file" id="attach-chat" name="my-attach-chat" class="attach-chat" data-chat="<%=item._id%>">
+              <label for="attach-chat-<%=item._id%>">
+                  <input type="file" id="attach-chat-<%=item._id%>" name="my-attach-chat chat-in-group" class="attach-chat" data-chat="<%=item._id%>">
                   <i class="fa fa-paperclip"></i>
               </label>
               <a href="#streamModal" id="video-chat" class="video-chat" data-chat="<%=item._id%>" data-toggle="modal">
@@ -137,12 +137,12 @@
           <input type="text" class="write-chat" id="write-chat-<%=item._id%>"data-chat="<%=item._id%>">
           <div class="icons">
               <a href="#" class="icon-chat" data-chat="<%=item._id%>"><i class="fa fa-smile-o"></i></a>
-              <label for="image-chat">
-                  <input type="file" id="image-chat" name="my-image-chat" class="image-chat" data-chat="<%=item._id%>">
+              <label for="image-chat-<%=item._id%>">
+                  <input type="file" id="image-chat-<%=item._id%>" name="my-image-chat" class="image-chat" data-chat="<%=item._id%>">
                   <i class="fa fa-photo"></i>
               </label>
-              <label for="attach-chat">
-                  <input type="file" id="attach-chat" name="my-attach-chat" class="attach-chat" data-chat="<%=item._id%>">
+              <label for="attach-chat-<%=item._id%>">
+                  <input type="file" id="attach-chat-<%=item._id%>" name="my-attach-chat" class="attach-chat" data-chat="<%=item._id%>">
                   <i class="fa fa-paperclip"></i>
               </label>
               <a href="#streamModal" id="video-chat" class="video-chat" data-chat="<%=item._id%>" data-toggle="modal">

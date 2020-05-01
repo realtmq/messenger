@@ -71,6 +71,8 @@ let initRoutes= (app)=>{
 
     router.post("/message/add-new-text-emoji",auth.checkLoggedin,messageValid.checkMessageLength,message.addNewTextEmoji);
 
+    router.post("/message/send-message-image",auth.checkLoggedin,message.sendMessageImage);
+
 
 
     return app.use("/",router);

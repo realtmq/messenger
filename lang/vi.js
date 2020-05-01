@@ -21,7 +21,9 @@ export const transErrors={
 	avatar_type_error:"File phai co dang jpg,jpeg,png",
 	avatar_size_error:"dung luong qua 1 mb",
 	password_invalid:"Ban nhap sai mat khau hien tai",
-	group_chat_not_found:"ko tim thay cuoc tro chuyen"
+	group_chat_not_found:"ko tim thay cuoc tro chuyen",
+	image_message_type_error:"File phai co dang jpg,jpeg,png",
+	image_message_size_error:"dung luong qua 1 mb"
 }
 
 export const transSuccess={

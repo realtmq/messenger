@@ -179,6 +179,8 @@ function chanceScreenChat(){
 
      // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
     enableEmojioneArea(divId);
+    //GUI tin nhan hinh anh
+    imageChat(divId);
   });
 }
  function convertEmoji(){
