@@ -177,6 +177,7 @@ function changeTypeChat(){
   }); 
 }
 
+//khi chọn 1 tên liên lạc bên trái 
 function chanceScreenChat(){
   $(".room-chat").unbind("click").on("click",function(){
     $(".person").removeClass("active");
@@ -190,6 +191,8 @@ function chanceScreenChat(){
     enableEmojioneArea(divId);
     // nạp gửi tin nhăn hình ảnh
     imageChat(divId);
+    // nạp lắng nghe cuộc gọi video
+    videoChat(divId);
   });
 }
  function convertEmoji(){
@@ -240,4 +243,9 @@ $(document).ready(function() {
   
   //convert unicode to imoji
   convertEmoji();
+
+  //
+  $('#video-chat-group').bind("click",function(){
+    alertify.notify("Tính năng sẽ sớm được ra mắt!","error",7);
+  });
 });

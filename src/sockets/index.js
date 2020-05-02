@@ -8,6 +8,7 @@ import typingOn from "./chat/typingOn";
 import typingOff from "./chat/typingOff";
 import userOnlineOffline from "./chat/userOnlineOffline";
 import imageChat from "./chat/imageChat";
+import videoChat from "./chat/videoChat";
  
 let initSocket =(io)=>{
 	addNewContact(io);
@@ -20,6 +21,7 @@ let initSocket =(io)=>{
 	typingOff(io);
 	userOnlineOffline(io);
 	imageChat(io);
+	videoChat(io);
 }
 
 module.exports =initSocket;

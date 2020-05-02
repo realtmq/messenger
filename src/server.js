@@ -12,9 +12,12 @@ import socketio from "socket.io";
 import initSockets from "./sockets/index";
 import configSocketIO from "./config/socketio";
 import cookieParser from "cookie-parser";
+import events from "events"; 
 
 // init app
 let app=express();
+
+events.EventEmitter.defaultMaxListeners=30; //max listeners events
 
 //init server with socketio
 let server= http.createServer(app);
