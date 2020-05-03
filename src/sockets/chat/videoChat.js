@@ -94,7 +94,12 @@ let videoChat=(io)=>{
 		    }
 		    if(client[data.callerId]){
 				client[data.callerId].forEach(socketId=>{
-					io.sockets.connected[socketId].emit("server-send-listener-accept-call",response);
+					io.sockets.connected[socketId].emit("server-send-listener-accept-to-caller",response);
+				})
+			}
+			if(client[data.listenerId]){
+				client[data.listenerId].forEach(socketId=>{
+					io.sockets.connected[socketId].emit("server-send-caller-accept-to-listener",response);
 				})
 			}
         });

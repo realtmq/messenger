@@ -8,9 +8,21 @@ function videoChat(divId){
 		}
 		// đầu tiên check xem nguoi nhận hiện co dang online??
 	    socket.emit("caller-check-listener-online",dataToEmit);
-	});
+	});	
+}
 
-	
+//tream video
+function playVideoStream(videoTagId,stream){
+	let video=document.getElementById(videoTagId);
+	video.srcObject= stream;
+	video.onloadeddata= function(){
+		video.play();
+	};
+}
+
+//close video stream
+function closeVideoStream(stream){
+	return stream.getTracks().forEach(track=>track.stop());
 }
 
 $(document).ready(function(){
@@ -19,9 +31,16 @@ $(document).ready(function(){
 		alertify.notify("Người dùng này hiện không trực tuyến","error",7);
 	});
 
-    // Tạo 1 peerid từ thư viện peer
+    // Tạo 1 peerid từ thư viện peer,caasu,cau hinh peer
 	let getPeerId="";
-	const peer= new Peer();
+	const peer= new Peer({
+		key:"peerjs",
+		host:"peerjs-server-trungquandev.herokuapp.com",
+		secure:true,
+		port:443,
+		debug:3
+	});
+
 	peer.on("open",function(peerId){
 		getPeerId=peerId;
 	});
@@ -38,6 +57,7 @@ $(document).ready(function(){
 		socket.emit("listener-emit-peerid-to-server",dataToEmit);
 	});
     
+    let timerInterval;
     //caller nhận được peerid của listener,xác nhận bắt đầu kết nối
 	socket.on("server-send-listener-peerid-to-caller",function(data){
 		let dataToEmit={
@@ -50,10 +70,9 @@ $(document).ready(function(){
         //caller gửi yêu cầu gọi đến server
 	    socket.emit("caller-request-call-to-server",dataToEmit);
 	     //bật modal thông báo đang kết nối phía caller
-	     let timerInterval;
 	     Swal.fire({
 	     	title:'Đang gọi tới <span style="color:#2ECC71;"> '+data.listenerName +' </span><i class="fa fa-volume-control-phone"></i>',
-	     	html: 'Time left:<strong></strong><br/><br/><button id="btn-cancel-call" class="btn btn-danger">Hủy cuộc gọi</button>',
+	     	html: 'Time left :<strong></strong><br/><br/><button id="btn-cancel-call" class="btn btn-danger">Hủy cuộc gọi</button>',
 	     	timer:30000,
 	     	allowOutsideClick:false,
 	     	onBeforeOpen:()=>{
@@ -81,11 +100,7 @@ $(document).ready(function(){
 	     				confirmButtonText:"Xác nhận"
 	     			});
 	     		});
-	     		socket.on("server-send-listener-accept-call",function(data){
-	     			Swal.close();
-	     			clearInterval(timerInterval);
-	     			console.log("listener accepted you");
-	     		})
+	     		
 	     	},
 	     	onClose:()=>{
 	     		clearInterval(timerInterval);
@@ -104,10 +119,9 @@ $(document).ready(function(){
 		listenerPeerId:data.listenerPeerId
 	    }
 	 
-	     let timerInterval;
 	     Swal.fire({
 	     	title:'<span style="color:#2ECC71;"> '+data.callerName +' muốn trò chuyện video với bạn </span><i class="fa fa-volume-control-phone"></i>',
-	     	html: 'Time left:<strong></strong><br/><br/><button id="btn-reject-call" class="btn btn-danger">Từ chối cuộc gọi</button><button id="btn-accept-call" class="btn btn-success">Chấp nhận</button>',
+	     	html: 'Time left :<strong></strong><br/><br/><button id="btn-reject-call" class="btn btn-danger">Từ chối cuộc gọi</button><button id="btn-accept-call" class="btn btn-success">Chấp nhận</button>',
 	     	timer:30000,
 	     	allowOutsideClick:false,
 	     	onBeforeOpen:()=>{  
@@ -140,5 +154,59 @@ $(document).ready(function(){
 	     }).then((result)=>{
 	     	return false;
 	     })
-	});	
+	});
+
+	socket.on("server-send-listener-accept-to-caller",function(data){
+		Swal.close();
+		clearInterval(timerInterval);
+
+		let getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia).bind(navigator);
+		getUserMedia({video: true, audio: true}, function(stream) {
+			//show modal streaming
+			$("#streamModal").modal("show");
+			//play stream of caller in modal
+			playVideoStream("local-stream",stream);
+			//call to listener
+			let call = peer.call(data.listenerPeerId, stream);
+
+			call.on("stream", function(stream) {
+				//play stream of listener in modal
+			    playVideoStream("remote-stream",stream);
+		    });
+		    $("#streamModal").on("hidden.bs.modal",function(){
+		    	closeVideoStream(stream);
+		    });
+}, function(err) {
+  console.log("Failed to get local stream" ,err);
+});
+
+	})
+
+	socket.on("server-send-caller-accept-to-listener",function(data){
+		Swal.close();
+		clearInterval(timerInterval);
+		let getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia).bind(navigator);
+	    
+
+	    peer.on('call', function(call) {
+	    getUserMedia({video: true, audio: true}, function(stream) {
+	    	//show modal streaming
+		    $("#streamModal").modal("show");
+		    //play stream of of listener in modal
+		    playVideoStream("local-stream",stream);
+	        call.answer(stream); // Answer the call with an A/V stream.
+	        call.on('stream', function(stream) {
+	        //play stream of caller in modal
+			    playVideoStream("remote-stream",stream);
+	        });
+	        $("#streamModal").on("hidden.bs.modal",function(){
+		    	closeVideoStream(stream);
+		    })
+	     }, function(err) {
+	    console.log('Failed to get local stream' ,err);
+	  });
+});
+	})
+
+
 });
