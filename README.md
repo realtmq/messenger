@@ -13,4 +13,3 @@ Trong Template giao diện này có sử dụng những thư viện phía client
 - sweetalert2 **^7.33.1**
 - photoset-grid **^1.0.1**
 - jquery-colorbox **^1.6.4**
-Thanks to Trung Quan senpai!!!
